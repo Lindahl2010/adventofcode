@@ -10,7 +10,6 @@ export class AdventYear {
   }
 
   puzzle(puzzle: Puzzle): AdventYear {
-    puzzle.setYear(this.year);
     this.puzzles.set(puzzle.getDay(), puzzle);
     return this;
   }
@@ -21,6 +20,6 @@ export class AdventYear {
       return puzzle;
     }
 
-    throw new Error(`Puzzle for day ${day} was not found.`);
+    throw new Error(`Puzzle for day ${day} was not found for ${this.year}.`);
   }
 }
