@@ -12,23 +12,14 @@ export class Day2 extends Puzzle {
   }
 
   public override part1(input: string): number {
-    const data = input.split("\n");
-    const boxes: Box[] = data.map((str) => {
-      const dimensions = str.split("x").map((v) => parseInt(v));
-      return {
-        length: dimensions[0] ?? 0,
-        width: dimensions[1] ?? 0,
-        height: dimensions[2] ?? 0,
-      };
-    });
-
+    const boxes: Box[] = this.mapBoxes(input);
     return boxes
       .map((box) => {
-        const side1 = box.length * box.width;
-        const side2 = box.width * box.height;
-        const side3 = box.height * box.length;
+        const s1 = box.length * box.width;
+        const s2 = box.width * box.height;
+        const s3 = box.height * box.length;
 
-        const smallest = Math.min(side1, side2, side3);
+        const smallest = Math.min(s1, s2, s3);
         return this.surfaceArea(box) + smallest;
       })
       .reduce((prev, curr) => prev + curr);
@@ -42,7 +33,31 @@ export class Day2 extends Puzzle {
     );
   }
 
-  public override part2(_input: string): number {
-    return 0;
+  public override part2(input: string): number {
+    const boxes: Box[] = this.mapBoxes(input);
+    return boxes
+      .map((box) => {
+        const perimeter = (s1: number, s2: number) => s1 * 2 + s2 * 2;
+        const p1 = perimeter(box.length, box.width);
+        const p2 = perimeter(box.width, box.height);
+        const p3 = perimeter(box.height, box.length);
+
+        const smallest = Math.min(p1, p2, p3);
+        const volume = box.length * box.width * box.height;
+        return smallest + volume;
+      })
+      .reduce((prev, curr) => prev + curr);
+  }
+
+  private mapBoxes(input: string): Box[] {
+    const data = input.split("\n");
+    return data.map((str) => {
+      const dimensions = str.split("x").map((v) => parseInt(v));
+      return {
+        length: dimensions[0] ?? 0,
+        width: dimensions[1] ?? 0,
+        height: dimensions[2] ?? 0,
+      };
+    });
   }
 }
