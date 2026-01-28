@@ -1,0 +1,16 @@
+# build
+dist
+
+# Input files
+input
+
+# Dependencies
+node_modules
+
+# IDE Settings
+.vscode
+
+# Logs
+logs
+*.log
+npm-debug.log*

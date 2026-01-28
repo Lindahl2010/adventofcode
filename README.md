@@ -1,5 +1,5 @@
 # adventofcode
 
-Stores puzzle solutions separated by year and language.
+Stores puzzle solutions separated by language and year.
 
 [Advent of Code](https://adventofcode.com/)
