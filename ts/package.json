@@ -1,7 +1,11 @@
 {
   "name": "advent-util",
   "version": "0.1.0",
+  "description": "cli tool to run and solve advent of code puzzles",
   "type": "module",
+  "engines": {
+    "node": "24"
+  },
   "bin": {
     "advent-util": "./dist/index.js"
   },
