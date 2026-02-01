@@ -24,9 +24,9 @@ Resulting in a directory structure that will look similar to the outline below.
 ```text
 root/
 ├── ts/
+│   ├── package.json
 │   └── src/
 │       ├── index.ts
-│       ├── package.json
 │       ├── 2015/
 │       ├── 2016/
 │       └── ...
