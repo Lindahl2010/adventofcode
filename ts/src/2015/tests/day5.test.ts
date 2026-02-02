@@ -41,6 +41,6 @@ describe("day5", () => {
     const result = day.part2(input);
 
     // then
-    expect(result).toBe(0);
+    expect(result).toBe(3);
   });
 });
