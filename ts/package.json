@@ -4,6 +4,7 @@
   "description": "cli tool to run and solve advent of code puzzles",
   "type": "module",
   "engines": {
+    "npm": ">=11.8.0",
     "node": "24"
   },
   "bin": {
