@@ -25,14 +25,6 @@ export class Day2 extends Puzzle {
       .reduce((prev, curr) => prev + curr);
   }
 
-  private surfaceArea(box: Box): number {
-    return (
-      2 * box.length * box.width +
-      2 * box.width * box.height +
-      2 * box.height * box.length
-    );
-  }
-
   public override part2(input: string): number {
     const boxes: Box[] = this.mapBoxes(input);
     return boxes
@@ -59,5 +51,13 @@ export class Day2 extends Puzzle {
         height: dimensions[2] ?? 0,
       };
     });
+  }
+
+  private surfaceArea(box: Box): number {
+    return (
+      2 * box.length * box.width +
+      2 * box.width * box.height +
+      2 * box.height * box.length
+    );
   }
 }
