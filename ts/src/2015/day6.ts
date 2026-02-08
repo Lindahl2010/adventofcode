@@ -25,7 +25,7 @@ export class Day6 extends Puzzle {
   public override part1(input: string): number {
     const data = input.split("\n");
 
-    const performCommand = (graph: boolean[][], command: Command) => {
+    const applyCommand = (graph: boolean[][], command: Command) => {
       for (let x = command.start.x; x <= command.end.x; x++) {
         for (let y = command.start.y; y <= command.end.y; y++) {
           if (graph[x] === undefined) graph[x] = [];
@@ -49,12 +49,42 @@ export class Day6 extends Puzzle {
 
     return data
       .map(this.mapCommand)
-      .reduce(performCommand, [])
+      .reduce(applyCommand, [])
       .reduce((count, row) => count + row.filter((v) => v).length, 0);
   }
 
-  public override part2(_input: string): number {
-    return 0;
+  public override part2(input: string): number {
+    const data = input.split("\n");
+
+    const applyCommand = (graph: number[][], command: Command) => {
+      for (let x = command.start.x; x <= command.end.x; x++) {
+        for (let y = command.start.y; y <= command.end.y; y++) {
+          if (graph[x] === undefined) graph[x] = [];
+          if (graph[x]![y] === undefined) graph[x]![y] = 0;
+          switch (command.action) {
+            case Event.ON:
+              graph[x]![y]! += 1;
+              break;
+            case Event.OFF:
+              if (graph[x]![y]! > 0) graph[x]![y]! -= 1;
+              break;
+            case Event.TOGGLE:
+              graph[x]![y]! += 2;
+              break;
+          }
+        }
+      }
+
+      return graph;
+    };
+
+    return data
+      .map(this.mapCommand)
+      .reduce(applyCommand, [])
+      .reduce(
+        (count, row) => count + row.reduce((prev, curr) => prev + curr),
+        0,
+      );
   }
 
   private mapCommand(line: string): Command {
