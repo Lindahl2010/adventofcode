@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { Day5 } from "../day5.js";
 
-describe("day5", () => {
+describe("2015: day 5", () => {
   const day = new Day5();
 
   it("part1", () => {

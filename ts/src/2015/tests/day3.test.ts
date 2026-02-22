@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { Day3 } from "../day3.js";
 
-describe("day3", () => {
+describe("2015: day 3", () => {
   const day = new Day3();
 
   test.each([
