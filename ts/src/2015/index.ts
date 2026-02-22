@@ -5,6 +5,7 @@ import { Day3 } from "./day3.js";
 import { Day4 } from "./day4.js";
 import { Day5 } from "./day5.js";
 import { Day6 } from "./day6.js";
+import { Day7 } from "./day7.js";
 
 export const adventYear = new AdventYear(2015)
   .puzzle(new Day1())
@@ -12,4 +13,5 @@ export const adventYear = new AdventYear(2015)
   .puzzle(new Day3())
   .puzzle(new Day4())
   .puzzle(new Day5())
-  .puzzle(new Day6());
+  .puzzle(new Day6())
+  .puzzle(new Day7());
