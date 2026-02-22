@@ -41,6 +41,14 @@ class Wire {
     return this.value!;
   }
 
+  setValue(value: number): void {
+    this.value = value;
+  }
+
+  unsetValue(): void {
+    this.value = undefined;
+  }
+
   mapValue(input: string): () => number {
     const pattern1 =
       /(?<operand1>[a-z]+|[0-9]+) (?<operator>AND|OR|LSHIFT|RSHIFT) (?<operand2>[a-z]+|[0-9]+) -> (?<target>[a-z]+)/;
@@ -109,29 +117,49 @@ export class Day7 extends Puzzle {
 
   public override part1(input: string): number {
     const data = input.split("\n");
-    data.forEach((instruction) => {
-      const pattern = /(?:.*) -> ([a-z]+)/;
-      const values = pattern.exec(instruction);
+    data.forEach(this.setWires);
 
-      if (values) {
-        const label = values[1]!;
-        wireMap.set(label, new Wire(label, instruction));
-      } else {
-        throw new Error(
-          `Unable to map wire object for instruction: ${instruction}`,
-        );
-      }
-    });
-
-    const wireA = wireMap.get("a");
-    if (wireA) {
-      return wireA.getValue();
+    const a = wireMap.get("a");
+    if (a) {
+      return a.getValue();
     }
 
     throw new Error("Error retrieving the value for Wire A");
   }
 
-  public override part2(_input: string): number {
-    return 0;
+  public override part2(input: string): number {
+    const data = input.split("\n");
+    data.forEach(this.setWires);
+
+    const a = wireMap.get("a");
+    const b = wireMap.get("b");
+
+    if (a && b) {
+      const overrideValue = a.getValue();
+      b.setValue(overrideValue);
+
+      for (const [key, entry] of wireMap.entries()) {
+        if (key === "b") continue; // don't reset b
+        entry.unsetValue();
+      }
+
+      return a.getValue();
+    }
+
+    throw new Error("Error retrieving the value for Wire A");
+  }
+
+  private setWires(instruction: string) {
+    const pattern = /(?:.*) -> ([a-z]+)/;
+    const values = pattern.exec(instruction);
+
+    if (values) {
+      const label = values[1]!;
+      wireMap.set(label, new Wire(label, instruction));
+    } else {
+      throw new Error(
+        `Unable to map wire object for instruction: ${instruction}`,
+      );
+    }
   }
 }
