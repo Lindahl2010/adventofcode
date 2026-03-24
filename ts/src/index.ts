@@ -6,7 +6,7 @@ import { adventYear as twenty15 } from "./2015/index.js";
 type ProgramOptions = {
   year: string;
   day: string;
-  part: string;
+  part?: string;
 };
 
 const program = new Command();
@@ -22,16 +22,16 @@ program
   .argument("<file>", "file containing puzzle input")
   .option("-y, --year <year>", "the year of the advent calendar", "2015")
   .option("-d, --day <day>", "the day of the advent calendar", "1")
-  .option("-p, --part <part>", "the part of the puzzle", "1")
+  .option("-p, --part <part>", "the part of the puzzle")
   .action(solveActionHandler);
 
 function solveActionHandler(file: string, options: ProgramOptions) {
-  const { year, day } = options;
+  const { year, day, part } = options;
   const data = fs.readFileSync(file, "utf-8");
   switch (year) {
     case "2015":
       const puzzle = twenty15.getPuzzle(Number(day));
-      puzzle.solve(data);
+      puzzle.solve(data, Number(part));
       break;
   }
 }
